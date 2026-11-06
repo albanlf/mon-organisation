@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>Mon organisation</title>
 <meta name="theme-color" content="#06040e"><meta name="color-scheme" content="dark light">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
@@ -35,7 +35,7 @@ html.dark{
 :root{
 --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;min-height:100%;overscroll-behavior:none}
+html,body{margin:0;min-height:100%;overscroll-behavior:none;touch-action:manipulation;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 html{background:var(--bg)}
 body{font:15px/1.45 var(--f);color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;letter-spacing:-.005em;color-scheme:light}
 html.dark body{color-scheme:dark}
@@ -342,6 +342,7 @@ nav.gl{bottom:calc(10px + env(safe-area-inset-bottom));left:calc(10px + env(safe
 .nb.sm{font-size:.64rem;padding:.42rem .7rem}.nb.sm span{max-width:70px;overflow:hidden;text-overflow:ellipsis}
 .nb .bd{position:absolute;top:2px;right:6px}
 main{padding:calc(1rem + env(safe-area-inset-top)) calc(1rem + env(safe-area-inset-right)) calc(120px + env(safe-area-inset-bottom)) calc(1rem + env(safe-area-inset-left))}
+input,select,textarea,.selb,.dtb{font-size:16px}/* iPhone : sous 16px, il zoome tout seul quand on touche un champ */
 h1{font-size:1.7rem}
 .card{border-radius:24px;padding:1rem}
 .cd{min-height:58px;padding:.25rem;border-radius:12px}.cd b{width:22px;height:22px;font-size:.76rem}
@@ -759,5 +760,7 @@ async function setName(){const o=await dlg('Ton prénom',[{n:'n',l:'Prénom',v:S
 function render(){closePop();const N=[['home','Accueil'],['bud','Budget'],['goals','Objectifs'],['sport','Sport'],['dem','Démarches'],['docs','Documents'],['cal','Calendrier']],th={auto:['auto','Thème : auto'],light:['sun','Thème : clair'],dark:['moon','Thème : sombre']}[theme],lt=dmLate();
 $('#app').innerHTML=`<div class="shell"><nav class="gl"><div class="brand"><span class="ico" aria-hidden="true"></span>Mon organisation</div>${N.map(([k,l])=>`<button class="nb ${k===view?'on':''}" onclick="go('${k}')">${ic(k)}<span>${l}</span>${k==='dem'&&lt?`<span class="bd">${lt}</span>`:''}</button>`).join('')}<span class="sp"></span>${FSA?`<button class="nb sm" onclick="pick()" title="Dossier de données">${ic('fold')}<span>${dir?esc(dir.name):'Choisir un dossier'}</span></button>`:''}<button class="nb sm" id="syn" onclick="syncSetup()">${ic('rest')}<span></span></button><button class="nb sm" onclick="bk()">${ic('save')}<span>Sauvegarder</span></button><button class="nb sm" onclick="this.nextElementSibling.click()">${ic('rest')}<span>Restaurer</span></button><input type="file" hidden accept=".json" onchange="imp(this.files[0])"><button class="nb sm" onclick="cyc()">${ic(th[0])}<span>${th[1]}</span></button><button class="nb sm" onclick="location.reload()">${ic('lock')}<span>Verrouiller</span></button></nav><main class="${view==='bud'?'wide':''} ${ANIM?'anim':''}">${V[view]()}</main></div>`;if(view==='bud')refresh();enh();ANIM=0;syncUI()}
 if(isSecureContext&&'serviceWorker' in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('sw.js').catch(()=>{});
+/* iPhone : bloque le zoom à deux doigts et le double-tap */
+['gesturestart','gesturechange'].forEach(t=>document.addEventListener(t,e=>e.preventDefault(),{passive:false}));
 lock();
 </script></body></html>
