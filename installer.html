@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Installer Mon organisation</title>
+<meta name="description" content="Toutes les étapes pour avoir l'app Mon organisation, avec tes données chiffrées dans ton propre Google Drive.">
+<meta name="theme-color" content="#06040e"><link rel="icon" href="icons/favicon.ico" sizes="any">
+<style>
+:root{--bg:#06040e;--card:#0f0c17;--card2:#181424;--ink:#eeebf5;--mut:#a39cb8;--ln:rgba(200,180,255,.1);--pop:#8b6cf0;--pop-t:rgba(122,85,232,.18);--ok:#5bbf86;--warn:#f0b35b;
+--f:"Segoe UI Variable Text","Segoe UI",-apple-system,BlinkMacSystemFont,system-ui,sans-serif}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;font:16px/1.55 var(--f);color:var(--ink);background:radial-gradient(80% 40% at 50% -6%,rgba(124,84,236,.45),transparent 70%),var(--bg);min-height:100vh}
+.wrap{max-width:760px;margin:0 auto;padding:calc(2.2rem + env(safe-area-inset-top)) 16px 4rem}
+header{text-align:center;margin-bottom:2.2rem}
+header img{width:72px;height:72px;border-radius:18px;box-shadow:0 0 0 1px rgba(160,130,255,.3),0 10px 40px -10px rgba(124,84,236,.8)}
+h1{font-weight:500;font-size:clamp(1.9rem,6vw,2.6rem);letter-spacing:-.035em;margin:.9rem 0 .4rem;line-height:1.1}
+header p{color:var(--mut);margin:0 auto;max-width:56ch}
+.step{background:var(--card);border:1px solid var(--ln);border-radius:20px;padding:1.3rem 1.3rem 1.1rem;margin-bottom:1rem}
+.step h2{display:flex;align-items:center;gap:.7rem;font-size:1.12rem;font-weight:600;margin:0 0 .8rem;letter-spacing:-.01em}
+.num{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--pop-t);color:#d8cdff;font-size:.9rem;font-weight:700;box-shadow:inset 0 0 0 1px rgba(160,130,255,.35)}
+ol,ul{margin:.3rem 0 .6rem;padding-left:1.3rem}li{margin:.35rem 0}
+b{color:#fff;font-weight:600}
+.mut{color:var(--mut)}.sm{font-size:.88rem}
+code{font-family:Consolas,"SF Mono",monospace;font-size:.9em;background:var(--card2);padding:.1rem .4rem;border-radius:6px;word-break:break-all}
+.note{border-radius:14px;padding:.8rem 1rem;margin:.8rem 0 .2rem;font-size:.92rem;background:var(--pop-t);box-shadow:inset 0 0 0 1px rgba(160,130,255,.25)}
+.note.warn{background:rgba(240,179,91,.1);box-shadow:inset 0 0 0 1px rgba(240,179,91,.3)}
+.tabs{display:inline-flex;gap:3px;padding:3px;border-radius:99px;background:var(--card2);margin:.2rem 0 .6rem;flex-wrap:wrap}
+.tabs button{border:0;background:none;color:var(--mut);font:inherit;font-size:.9rem;padding:.4rem 1rem;border-radius:99px;cursor:pointer}
+.tabs button.on{background:var(--ink);color:#0a0712;font-weight:600}
+.pane{display:none}.pane.on{display:block}
+.btn{display:inline-flex;align-items:center;gap:.4rem;border:0;cursor:pointer;font:inherit;font-weight:600;font-size:.95rem;padding:.6rem 1.2rem;border-radius:99px;background:var(--ink);color:#0a0712}
+.btn.g{background:var(--card2);color:var(--ink);box-shadow:inset 0 0 0 1px var(--ln)}
+.btn:disabled{opacity:.4;cursor:default}
+.row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.6rem 0}
+input{width:100%;font:inherit;font-size:16px;color:var(--ink);background:#0a0811;border:1px solid var(--ln);border-radius:12px;padding:.65rem .8rem;outline:0}
+input:focus{border-color:var(--pop);box-shadow:0 0 0 3px var(--pop-t)}
+.out{font-family:Consolas,"SF Mono",monospace;font-size:.82rem;background:#0a0811;border:1px solid var(--ln);border-radius:12px;padding:.7rem .8rem;word-break:break-all;min-height:2.6rem}
+.ok{color:var(--ok)}
+a{color:#c9b8ff}
+:focus-visible{outline:2px solid var(--pop);outline-offset:2px}
+footer{text-align:center;color:var(--mut);font-size:.82rem;margin-top:2rem}
+</style></head><body><div class="wrap">
+
+<header>
+  <img src="icons/icon-192.png" alt="">
+  <h1>Installer Mon organisation</h1>
+  <p>L'app pour gérer ton budget, tes objectifs, ton sport, tes démarches, tes documents et ton calendrier. Tes données sont <b>chiffrées avec ton mot de passe</b> et rangées dans <b>ton propre Google Drive</b> : personne d'autre ne peut les lire.</p>
+</header>
+
+<p class="mut sm" style="text-align:center;margin:-1rem 0 1.6rem">Il te faut un compte Google et environ 15 minutes. Fais les étapes <b>sur un ordinateur</b>, sauf l'étape 4.</p>
+
+<section class="step">
+  <h2><span class="num">1</span>Crée ton coffre dans Google</h2>
+  <p class="mut sm" style="margin-top:0">Le coffre est un petit programme rangé dans ton compte Google. Il range tes données chiffrées dans ton Drive.</p>
+  <ol>
+    <li>Va sur <a href="https://script.google.com" target="_blank" rel="noopener">script.google.com</a>, connecte-toi à ton compte Google, puis clique sur <b>Nouveau projet</b>.</li>
+    <li>En haut à gauche, clique sur « Projet sans titre » et renomme-le <b>Mon organisation</b>.</li>
+    <li>Clique sur le bouton ci-dessous : il crée <b>ton code secret</b> et prépare le programme à coller.
+      <div class="row"><button class="btn" id="gen">Préparer mon coffre</button><button class="btn g" id="copyCode" disabled>Copier le programme</button><span id="genOk" class="ok sm"></span></div>
+    </li>
+    <li>Dans Apps Script, clique dans le fichier <b>Code.gs</b>, efface tout (<b>Ctrl+A</b>, puis Suppr), colle (<b>Ctrl+V</b>), puis enregistre (<b>Ctrl+S</b>).</li>
+  </ol>
+  <div class="note warn">Ton code secret est gardé seulement dans ce navigateur et dans ton coffre. <b>Fais l'étape 3 sur ce même ordinateur, sans fermer cette page.</b></div>
+</section>
+
+<section class="step">
+  <h2><span class="num">2</span>Publie ton coffre</h2>
+  <ol>
+    <li>En haut à droite, clique sur <b>Déployer</b>, puis <b>Nouveau déploiement</b>.</li>
+    <li>Clique sur la roue dentée à côté de « Sélectionner le type », puis choisis <b>Application Web</b>.</li>
+    <li>Règle « Exécuter en tant que » sur <b>Moi</b>, et « Qui a accès » sur <b>Tout le monde</b>.</li>
+    <li>Clique sur <b>Déployer</b>, puis <b>Autoriser l'accès</b>, et choisis ton compte.<br>
+      <span class="mut sm">Google affiche « Google n'a pas validé cette application » : clique sur <b>Paramètres avancés</b>, puis <b>Accéder à Mon organisation (non sécurisé)</b>, puis <b>Autoriser</b>. C'est normal, c'est ton propre programme.</span></li>
+    <li>Copie l'<b>URL de l'application Web</b>. Elle se termine par <code>/exec</code>.</li>
+  </ol>
+  <div class="note">« Tout le monde » veut seulement dire que quelqu'un peut frapper à la porte. Sans ton code secret, le coffre refuse tout. Et même avec, tes données restent chiffrées par ton mot de passe.</div>
+</section>
+
+<section class="step">
+  <h2><span class="num">3</span>Fabrique ton lien de synchro</h2>
+  <p class="mut sm" style="margin-top:0">C'est la clé qui relie tes appareils à ton coffre. Elle est la même sur ton téléphone et ton ordinateur.</p>
+  <label class="sm" for="url">Colle ici l'URL <code>/exec</code> de l'étape 2</label>
+  <input id="url" placeholder="https://script.google.com/macros/s/…/exec" autocomplete="off" spellcheck="false" style="margin:.4rem 0">
+  <div class="row"><button class="btn" id="mk">Tester et créer mon lien</button><span id="mkMsg" class="sm"></span></div>
+  <div class="out" id="link"></div>
+  <div class="row"><button class="btn g" id="copyLink" disabled>Copier mon lien de synchro</button></div>
+  <div class="note warn"><b>Envoie-toi ce lien</b> (mail ou note à toi-même) pour l'avoir sur ton téléphone, et <b>ne le donne à personne</b>.</div>
+</section>
+
+<section class="step">
+  <h2><span class="num">4</span>Installe l'app</h2>
+  <div class="tabs" role="tablist"><button class="on" data-p="ios">iPhone</button><button data-p="and">Android</button><button data-p="pc">Ordinateur</button></div>
+  <div class="pane on" id="ios"><ol>
+    <li>Ouvre <b>Safari</b> et va sur <a href="./">albanlf.github.io/mon-organisation</a>. C'est bien <b>.github.io</b>.</li>
+    <li>Appuie sur <b>Partager</b> (le carré avec une flèche), puis <b>Sur l'écran d'accueil</b>, puis <b>Ajouter</b>.</li>
+    <li>Ferme Safari et ouvre l'app depuis sa nouvelle icône.</li>
+  </ol></div>
+  <div class="pane" id="and"><ol>
+    <li>Ouvre <b>Chrome</b> et va sur <a href="./">albanlf.github.io/mon-organisation</a>.</li>
+    <li>Menu <b>⋮</b>, puis <b>Installer l'application</b> (ou « Ajouter à l'écran d'accueil »).</li>
+    <li>Ouvre l'app depuis sa nouvelle icône.</li>
+  </ol></div>
+  <div class="pane" id="pc"><ol>
+    <li>Ouvre <b>Chrome</b> ou <b>Edge</b> et va sur <a href="./">albanlf.github.io/mon-organisation</a>.</li>
+    <li>Clique sur l'icône <b>Installer</b> à droite de la barre d'adresse (un petit écran avec une flèche).</li>
+  </ol></div>
+</section>
+
+<section class="step">
+  <h2><span class="num">5</span>Connecte chaque appareil</h2>
+  <p class="mut sm" style="margin-top:0">À faire sur chaque appareil, dans cet ordre.</p>
+  <ol>
+    <li>Sur l'écran de l'app, appuie sur <b>Connecter Google Drive</b>.</li>
+    <li>Colle ton <b>lien de synchro</b>, puis <b>Connecter</b>.</li>
+    <li><b>Sur ton premier appareil</b>, choisis ton mot de passe (8 caractères minimum), tape-le deux fois, puis <b>Créer mon coffre</b>.<br>
+        <b>Sur les appareils suivants</b>, tape ce même mot de passe, puis <b>Déverrouiller</b>.</li>
+  </ol>
+  <p class="sm">Une fois l'app ouverte, le menu indique <b>« Drive : à jour »</b>. Ce que tu modifies sur un appareil apparaît sur l'autre en moins d'une minute.</p>
+  <div class="note warn"><b>Ton mot de passe est la seule clé de tes données.</b> S'il est perdu, personne ne peut les récupérer, même pas Google. Note-le dans un endroit sûr.</div>
+</section>
+
+<footer>Tes données ne passent jamais par ce site : il fournit seulement l'app. Elles restent sur tes appareils et dans ton Google Drive.</footer>
+
+<script>
+const $=s=>document.querySelector(s);
+const ls={get:k=>{try{return localStorage.getItem(k)}catch{}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch{}}};
+let secret=ls.get('installer-secret')||'',code='';
+const newSecret=()=>{const a=crypto.getRandomValues(new Uint8Array(24));return btoa(String.fromCharCode(...a)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')};
+async function copy(t,btn,label){try{await navigator.clipboard.writeText(t)}catch{const x=document.createElement('textarea');x.value=t;document.body.appendChild(x);x.select();document.execCommand('copy');x.remove()}const o=btn.textContent;btn.textContent=label||'Copié ✓';setTimeout(()=>btn.textContent=o,1800)}
+$('#gen').onclick=async()=>{
+  if(!secret){secret=newSecret();ls.set('installer-secret',secret)}
+  try{const t=await(await fetch('coffre.txt',{cache:'no-store'})).text();code=t.replace("'SECRET_A_REMPLACER'","'"+secret+"'")}catch{$('#genOk').textContent='Impossible de charger le programme : vérifie ta connexion.';return}
+  $('#copyCode').disabled=false;await copy(code,$('#copyCode'),'Programme copié ✓');$('#genOk').textContent='Prêt : colle-le dans Code.gs.'};
+$('#copyCode').onclick=()=>copy(code,$('#copyCode'));
+$('#mk').onclick=async()=>{
+  const u=$('#url').value.trim(),m=$('#mkMsg');m.className='sm';
+  if(!secret){m.textContent='Fais d’abord l’étape 1 sur cet ordinateur.';return}
+  if(!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(u)){m.textContent='Colle l’URL complète, qui se termine par /exec.';return}
+  m.textContent='Test du coffre…';
+  try{const r=await(await fetch(u,{method:'POST',body:JSON.stringify({s:secret,op:'meta',k:'state'})})).json();
+    if(r.err==='secret'){m.textContent='Le coffre ne reconnaît pas ton code secret : recolle le programme de l’étape 1, puis redéploie (Gérer les déploiements, crayon, Nouvelle version).';return}
+    if(r.err)throw 0}
+  catch{m.textContent='Le coffre ne répond pas : vérifie que « Qui a accès » est bien sur « Tout le monde », puis réessaie.';return}
+  const l=u+'#'+secret;$('#link').textContent=l;$('#copyLink').disabled=false;m.className='sm ok';m.textContent='Ton coffre fonctionne ✓';await copy(l,$('#copyLink'),'Lien copié ✓')};
+$('#copyLink').onclick=()=>copy($('#link').textContent,$('#copyLink'));
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tabs button,.pane').forEach(x=>x.classList.remove('on'));b.classList.add('on');$('#'+b.dataset.p).classList.add('on')});
+if(/Android/i.test(navigator.userAgent))$('[data-p=and]').click();else if(!/iPhone|iPad/i.test(navigator.userAgent))$('[data-p=pc]').click();
+</script>
+</body></html>

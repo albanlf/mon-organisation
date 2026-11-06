@@ -1,0 +1,74 @@
+/**
+ * Mon organisation — coffre de synchronisation (Google Apps Script).
+ *
+ * L'app (installée sur ton PC et ton téléphone) envoie ici ses données DÉJÀ CHIFFRÉES
+ * avec ton mot de passe ; elles sont rangées dans le dossier « Mon organisation – données »
+ * de ton Google Drive. Ce script ne voit jamais tes données en clair.
+ *
+ * SECRET protège le coffre : sans lui, personne ne peut lire, écrire ni effacer.
+ * Ne publie jamais ce fichier (il reste sur ton PC, hors du site GitHub).
+ */
+const SECRET = 'SECRET_A_REMPLACER'; // remplacé par le vrai code au moment du copier-coller (voir apps-script/secret.txt, hors git)
+const FOLDER = 'Mon organisation – données';
+
+function doGet() {
+  return ContentService.createTextOutput('Mon organisation : coffre de synchronisation actif.');
+}
+
+/** API : corps JSON { s: secret, op: 'get'|'put'|'del'|'meta', k: clé, v: valeur base64 } */
+function doPost(e) {
+  let res;
+  try {
+    const q = JSON.parse(e.postData.contents);
+    if (q.s !== SECRET) throw new Error('secret');
+    if (q.op === 'get') res = { v: sget(q.k), t: smeta(q.k) };
+    else if (q.op === 'put') res = { t: sput(q.k, q.v) };
+    else if (q.op === 'del') res = { ok: sdel(q.k) };
+    else if (q.op === 'meta') res = { t: smeta(q.k) };
+    else throw new Error('op');
+  } catch (err) {
+    res = { err: String(err && err.message || err) };
+  }
+  return ContentService.createTextOutput(JSON.stringify(res)).setMimeType(ContentService.MimeType.JSON);
+}
+
+function dir_() {
+  const it = DriveApp.getFoldersByName(FOLDER);
+  return it.hasNext() ? it.next() : DriveApp.createFolder(FOLDER);
+}
+
+/* « doc:abc » → « doc_abc.b64 » */
+function name_(k) { return String(k).replace(/[^\w.-]/g, '_') + '.b64'; }
+
+function files_(k) {
+  const out = [], it = dir_().getFilesByName(name_(k));
+  while (it.hasNext()) out.push(it.next());
+  out.sort(function (a, b) { return b.getLastUpdated() - a.getLastUpdated(); });
+  return out;
+}
+
+function sget(k) {
+  const f = files_(k)[0];
+  return f ? f.getBlob().getDataAsString() : null;
+}
+
+function sput(k, v) {
+  const lock = LockService.getScriptLock();
+  lock.waitLock(20000);
+  try {
+    const old = files_(k);
+    const f = dir_().createFile(Utilities.newBlob(v, 'text/plain', name_(k)));
+    old.forEach(function (o) { o.setTrashed(true); });
+    return f.getLastUpdated().getTime();
+  } finally { lock.releaseLock(); }
+}
+
+function sdel(k) {
+  files_(k).forEach(function (o) { o.setTrashed(true); });
+  return true;
+}
+
+function smeta(k) {
+  const f = files_(k)[0];
+  return f ? f.getLastUpdated().getTime() : 0;
+}

@@ -1,7 +1,7 @@
 /* Mon organisation — fonctionnement hors ligne.
    La page est d'abord demandée au réseau (pour avoir la dernière version), sinon servie depuis le cache.
    Les appels au coffre Google (synchro) ne passent jamais par le cache. */
-const CACHE = 'orga-20261106015845';
+const CACHE = 'orga-20261106125535';
 const FILES = ['./', './index.html', './manifest.webmanifest', './icons/favicon.ico', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
