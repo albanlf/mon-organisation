@@ -4,7 +4,7 @@
 <meta name="theme-color" content="#06040e"><meta name="color-scheme" content="dark light">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Organisation">
-<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><link rel="icon" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><link rel="icon" href="icons/favicon.ico" sizes="any"><link rel="icon" href="icons/icon-192.png" type="image/png">
 <style>
 /* Monde : nuit violette. Fond presque noir, un « horizon » de lumière violette et lavande
    (lentille sombre au centre, halo qui s'allume sur les bords), titres légers, pilules.
@@ -764,6 +764,6 @@ if(isSecureContext&&'serviceWorker' in navigator&&location.protocol!=='file:')na
 ['gesturestart','gesturechange','gestureend'].forEach(t=>document.addEventListener(t,e=>e.preventDefault(),{passive:false}));
 document.addEventListener('touchmove',e=>{if(e.touches.length>1||(e.scale&&e.scale!==1))e.preventDefault()},{passive:false});
 let lastTap=0;document.addEventListener('touchend',e=>{const n=Date.now();if(n-lastTap<300&&!e.target.closest('input,textarea,select,button,a,[onclick]'))e.preventDefault();lastTap=n},{passive:false});
-const VER='06/11 01:51';
+const VER='06/11 01:58';
 lock();
 </script></body></html>
