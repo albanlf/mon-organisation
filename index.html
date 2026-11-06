@@ -44,7 +44,7 @@ html.dark body{color-scheme:dark}
 input,textarea{caret-color:var(--pop)}
 :focus-visible{outline:2px solid var(--pop);outline-offset:2px}
 /* l'horizon : une lentille sombre posée sur un halo violet qui blanchit vers les bords */
-:root{--horizon:radial-gradient(ellipse 58% 40% at 50% 48%,#06040e 0 46%,rgba(6,4,14,.85) 58%,rgba(6,4,14,0) 78%),radial-gradient(ellipse 52% 38% at 0% 78%,rgba(240,236,255,.95) 0,rgba(196,176,255,.75) 26%,rgba(124,84,236,0) 62%),radial-gradient(ellipse 52% 38% at 100% 78%,rgba(240,236,255,.95) 0,rgba(196,176,255,.75) 26%,rgba(124,84,236,0) 62%),radial-gradient(ellipse 95% 62% at 50% 52%,rgba(160,124,255,.95) 0 40%,rgba(112,70,240,.85) 55%,rgba(52,24,140,.6) 70%,rgba(6,4,14,0) 88%),#06040e}
+:root{--hz-core:#06040e;--hz-ink:#fff;--horizon:radial-gradient(ellipse 58% 40% at 50% 48%,var(--hz-core) 0 46%,color-mix(in srgb,var(--hz-core) 85%,transparent) 58%,transparent 78%),radial-gradient(ellipse 52% 38% at 0% 78%,color-mix(in srgb,var(--pop) 10%,#fff) 0,color-mix(in srgb,var(--pop) 40%,#fff) 26%,transparent 62%),radial-gradient(ellipse 52% 38% at 100% 78%,color-mix(in srgb,var(--pop) 10%,#fff) 0,color-mix(in srgb,var(--pop) 40%,#fff) 26%,transparent 62%),radial-gradient(ellipse 95% 62% at 50% 52%,color-mix(in srgb,var(--pop) 72%,#fff) 0 40%,var(--pop) 55%,color-mix(in srgb,var(--pop) 45%,var(--hz-core)) 70%,transparent 88%),var(--hz-core)}
 .wall{position:fixed;inset:0;z-index:-1;background:var(--bg);overflow:hidden}
 .wall::before{content:"";position:absolute;left:-10%;right:-10%;top:-62vh;height:100vh;background:var(--horizon);opacity:.55;filter:blur(18px);-webkit-mask:linear-gradient(#000 55%,transparent);mask:linear-gradient(#000 55%,transparent);animation:breathe 14s ease-in-out infinite alternate}
 html:not(.dark) .wall::before{opacity:.2}
@@ -59,21 +59,21 @@ h2{font:600 1rem/1.3 var(--fd);margin:0 0 .9rem;letter-spacing:-.01em;display:fl
 .card{contain:layout paint}
 .card{border-radius:22px;padding:1.25rem 1.35rem;margin-bottom:1rem}
 /* ---------- en-tête d'accueil : l'horizon, titre centré ---------- */
-.hero{position:relative;overflow:hidden;border-radius:26px;padding:2.4rem 1.6rem 4.6rem;margin-bottom:1rem;min-height:300px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;background:#06040e;color:#f4f2fa;border:1px solid var(--bd);box-shadow:var(--sh);isolation:isolate}
+.hero{position:relative;overflow:hidden;border-radius:26px;padding:2.4rem 1.6rem 4.6rem;margin-bottom:1rem;min-height:300px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;background:var(--hz-core);color:var(--hz-ink);border:1px solid var(--bd);box-shadow:var(--sh);isolation:isolate}
 .hero::before{content:"";position:absolute;left:-6%;right:-6%;top:12%;bottom:-70%;z-index:-2;background:var(--horizon);filter:blur(10px)}
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:var(--grain);opacity:.08;mix-blend-mode:overlay}
-.hero .pill{display:inline-flex;align-items:center;gap:.6rem;margin-bottom:1.3rem;font-size:.8rem;color:#e9e4ff}
-.hero .pill span{padding:.38rem .9rem;border-radius:9px;background:rgba(40,26,92,.75);box-shadow:inset 0 0 0 1px rgba(160,130,255,.35),0 0 24px -4px rgba(124,84,236,.6)}
-.hero .pill i{width:34px;height:1px;background:linear-gradient(90deg,transparent,rgba(233,228,255,.8))}
+.hero .pill{display:inline-flex;align-items:center;gap:.6rem;margin-bottom:1.3rem;font-size:.8rem;color:var(--hz-ink)}
+.hero .pill span{padding:.38rem .9rem;border-radius:9px;background:color-mix(in srgb,var(--pop) 28%,var(--hz-core));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--pop) 60%,transparent),0 0 24px -4px var(--glow)}
+.hero .pill i{width:34px;height:1px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--hz-ink) 80%,transparent))}
 .hero .pill i:last-child{transform:scaleX(-1)}
-.hero h1{font-size:clamp(2.3rem,4.6vw,3.6rem);font-weight:400;margin:0 0 .45rem;color:#fff;letter-spacing:-.04em}
-.hero .sub{color:rgba(233,228,255,.62);margin:0;font-size:.92rem}
+.hero h1{font-size:clamp(2.3rem,4.6vw,3.6rem);font-weight:400;margin:0 0 .45rem;color:var(--hz-ink);letter-spacing:-.04em}
+.hero .sub{color:color-mix(in srgb,var(--hz-ink) 62%,transparent);margin:0;font-size:.92rem}
 .card>h2:first-child{margin-top:0}
 /* ---------- structure ---------- */
 .shell{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:100vh}
 nav.gl{position:sticky;top:14px;height:calc(100vh - 28px);margin:14px 0 14px 14px;padding:1rem .65rem;display:flex;flex-direction:column;gap:2px;border-radius:24px;z-index:5;overflow-y:auto;scrollbar-width:none}
 .brand{display:flex;align-items:center;gap:.7rem;padding:.3rem .55rem 1.1rem;font:700 1.02rem/1.15 var(--fd);letter-spacing:-.02em}
-.brand .ico,.lki{position:relative;overflow:hidden;background:#06040e;box-shadow:inset 0 0 0 1px rgba(160,130,255,.3),0 6px 16px -6px rgba(0,0,0,.6)}
+.brand .ico,.lki{position:relative;overflow:hidden;background:var(--hz-core);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--pop) 50%,transparent),0 6px 16px -6px rgba(0,0,0,.6)}
 .brand .ico::after,.lki::after{content:"";position:absolute;left:-45%;right:-45%;top:18%;bottom:-75%;background:var(--horizon);filter:blur(1.5px)}
 .brand .ico{width:38px;height:38px;border-radius:12px;flex:none}
 .nb{all:unset;cursor:pointer;display:flex;align-items:center;gap:.7rem;padding:.56rem .8rem;border-radius:14px;color:var(--mut);font-weight:500;font-size:.94rem;transition:background .2s,color .2s,transform .25s cubic-bezier(.34,1.56,.64,1);position:relative}
@@ -160,6 +160,32 @@ form.row{display:flex;flex-wrap:wrap;gap:.6rem;align-items:end}
 .md .msg{margin:-.3rem 0 0;color:var(--mut)}
 .md .er{color:var(--bad);font-size:.84rem;margin:0;min-height:0}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.frow:has(>:nth-child(3)){grid-template-columns:1.3fr 1fr 1fr}
+.fcol{border:0;padding:0;margin:0;min-width:0}.fcol legend{font-size:.78rem;color:var(--mut);font-weight:550;padding:0;margin-bottom:.4rem}
+.swat{display:flex;flex-wrap:wrap;gap:.45rem}.swat label,.days label{position:relative;cursor:pointer}.swat input,.days input{position:absolute;opacity:0;pointer-events:none}
+.swat i{display:block;width:28px;height:28px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(255,255,255,.15);transition:transform .2s}
+.swat input:checked+i{box-shadow:0 0 0 2px var(--glass3),0 0 0 4px var(--ink);transform:scale(1.05)}
+.swat input:focus-visible+i,.days input:focus-visible+span{outline:2px solid var(--pop);outline-offset:3px}
+.days{display:flex;gap:.35rem;flex-wrap:wrap}.days span{display:block;padding:.4rem .7rem;border-radius:99px;background:var(--fill);font-size:.84rem;font-weight:550;color:var(--mut)}
+.days input:checked+span{background:var(--pop);color:#fff}
+input[type=color]{padding:.25rem;height:44px;cursor:pointer}
+.md{width:min(520px,100%)}
+/* réglages : thèmes */
+.thg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.6rem;margin-bottom:1rem}
+.thp{all:unset;cursor:pointer;display:flex;flex-direction:column;gap:.45rem;padding:.55rem;border-radius:16px;background:var(--fill);font-size:.84rem;font-weight:550;transition:background .2s,box-shadow .2s}
+.thp:hover{background:var(--fill2)}.thp.on{box-shadow:inset 0 0 0 2px var(--pop)}.thp:focus-visible{outline:2px solid var(--pop);outline-offset:2px}
+.th3{display:flex;height:34px;border-radius:10px;overflow:hidden;box-shadow:inset 0 0 0 1px var(--ln)}.th3 i{display:block}
+.thcs{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.6rem}
+.thc{flex-direction:row;align-items:center;gap:.7rem;padding:.6rem .7rem;border-radius:16px;background:var(--fill);cursor:pointer;color:var(--ink)}
+.thc input{width:44px;height:44px;padding:0;border:0;border-radius:12px;background:none;flex:none;cursor:pointer}
+.thc input::-webkit-color-swatch-wrapper{padding:0}.thc input::-webkit-color-swatch{border:0;border-radius:12px}
+.thc b{display:block;font-size:.88rem}.thc small{color:var(--mut);font-size:.76rem}
+/* projets */
+.pj{border-top:3px solid var(--pc)}
+.mini .pin{font:inherit;font-size:1.25rem;font-weight:700;font-variant-numeric:tabular-nums;background:transparent;border:1px solid transparent;border-radius:10px;padding:.05rem .35rem;margin:-.05rem -.35rem;width:calc(100% + .7rem)}
+.mini .pin:hover{background:var(--fill)}
+.pjt td{padding:.3rem .4rem}.pjt input.nm,.pjt input.c{width:100%;background:transparent;border-color:transparent;padding:.35rem .5rem;border-radius:10px}
+.pjt input.c{text-align:right;font-variant-numeric:tabular-nums;width:110px}.pjt input.nm:hover,.pjt input.c:hover{background:var(--fill)}
 @keyframes pop{from{opacity:0;transform:scale(.9) translateY(10px)}}
 @keyframes popo{to{opacity:0;transform:scale(.95)}}
 @keyframes fade{from{opacity:0}}@keyframes fadeo{to{opacity:0}}
@@ -295,7 +321,8 @@ body.dgon,body.dgon *{cursor:grabbing!important;user-select:none!important}
 .cd b{font-size:.84rem;font-weight:650;width:26px;height:26px;display:grid;place-items:center;border-radius:50%;flex:none}
 .cd.we b{color:var(--mut)}
 .cd.t{box-shadow:inset 0 0 0 1.5px var(--pop)}.cd.t b{background:var(--pop);color:#fff}
-.tag{display:block;font-size:.7rem;padding:.1rem .45rem;border-radius:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600;background:var(--acc);color:var(--on)}
+.tag{display:block;font-size:.7rem;padding:.1rem .45rem;border-radius:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600;background:var(--tc,var(--pop));color:#fff}
+.tag.gg{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--tc,var(--mut))}
 .tag.g{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--mut)}
 .tag.d{background:var(--fill2);color:var(--ink)}
 .tag.s{background:transparent;color:var(--mut);box-shadow:inset 0 0 0 1px var(--ln)}
@@ -323,7 +350,7 @@ input.tt:hover{background:var(--fill)}
 .lki svg{position:relative;z-index:1;width:30px;height:30px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 2px rgba(0,0,0,.8))}
 /* écran verrouillé : l'horizon prend tout l'écran */
 body:has(.lock) .wall::before{top:0;height:100vh;opacity:1;-webkit-mask:none;mask:none;filter:blur(14px);animation:none}
-body:has(.lock) .wall{background:#06040e}
+body:has(.lock) .wall{background:var(--bg)}
 .lock{box-shadow:var(--shp),0 0 90px -20px var(--glow)}
 .err{color:var(--bad);min-height:1.2em;margin:0;font-size:.88rem}
 .lock h1{font-size:1.7rem}
@@ -365,6 +392,7 @@ let db,key,S,dir=null,pend=null,mode='p',gfil='Tous',view='home',month=today().s
 const DOCS=['Fiche de paye','Facture','Contrat','Identité','Impôts','Autre'];
 /* ---------- icônes ---------- */
 const ICO={home:'<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>',bud:'<rect x="3" y="5.5" width="18" height="14" rx="3"/><path d="M3 10h18M15.5 15h2"/>',goals:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/>',sport:'<path d="M6.5 6.5v11M3.5 9v6M17.5 6.5v11M20.5 9v6M6.5 12h11"/>',dem:'<path d="M10 6h10M10 12h10M10 18h10"/><path d="m3.5 6 1.5 1.5L7.5 5M3.5 12l1.5 1.5L7.5 11M3.5 18l1.5 1.5L7.5 17"/>',docs:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/>',cal:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/>',fold:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',save:'<path d="M12 3v12M7 10l5 5 5-5M5 21h14"/>',rest:'<path d="M12 21V9M7 14l5-5 5 5M5 3h14"/>',lock:'<rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',auto:'<circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/>',edit:'<path d="M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4"/>',del:'<path d="M6 6l12 12M18 6 6 18"/>',trash:'<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',rep:'<path d="M4 12h12M12 7l5 5-5 5M20 5v14"/>',list:'<path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/>',plus:'<path d="M12 5v14M5 12h14"/>',chev:'<path d="m9 6 6 6-6 6"/>',left:'<path d="m15 6-6 6 6 6"/>',down:'<path d="m6 9 6 6 6-6"/>',check:'<path d="m5 12 5 5 9-10"/>',alert:'<path d="M12 8v5M12 16.5h.01"/><circle cx="12" cy="12" r="9"/>',grid:'<rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/>',exp:'<path d="M12 3v12M7 8l5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/>'};
+ICO.proj='<path d="M4 8h16v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M9 8V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3M4 13h16"/>';ICO.set='<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>';
 const ic=n=>`<svg viewBox="0 0 24 24" aria-hidden="true">${ICO[n]||''}</svg>`;
 /* ---------- thème ---------- */
 let theme=(()=>{try{return localStorage.getItem('orga-theme')||'dark'}catch{return'dark'}})();
@@ -403,7 +431,7 @@ const del=async k=>{await ldel(k);if(R){dirty.delete(k);gone.add(k);keepQ();late
 async function saltMoved(){if(dirty.has('salt'))return null;const j=await rcall('get','salt'),l=await lget('salt');return j.v&&(!l||b64e(l)!==j.v)?j.v:null}
 async function prePull(){try{const ns=await saltMoved();if(ns){const j=await rcall('get','state');await lput('salt',b64d(ns));if(j.v!=null)await lput('state',b64d(j.v));dirty=new Set;gone=new Set;keepQ();lss('orga-rseen',j.t||0);return}const{t}=await rcall('meta','state');if(t>+(lsg('orga-rseen')||0)&&!(dirty.has('state')&&+(lsg('orga-ledit')||0)>t)){const j=await rcall('get','state');if(j.v!=null){await lput('state',b64d(j.v));dirty.delete('state');keepQ();lss('orga-rseen',j.t)}}}catch{syncErr=1}}
 /* au retour sur l'app : si l'autre appareil a modifié les données, on prend la version la plus récente */
-async function pull(){if(!R||!key||busy)return;try{if(await saltMoved()){toast('Ton coffre a été remplacé depuis un autre appareil : déverrouille-le à nouveau');return setTimeout(()=>location.reload(),2200)}const{t}=await rcall('meta','state');syncErr=0;if(t>+(lsg('orga-rseen')||0)){if(dirty.has('state')&&+(lsg('orga-ledit')||0)>t)return flush();const j=await rcall('get','state');if(j.v==null)return;const b=b64d(j.v),s=JSON.parse(D.decode(await dec(b)));await lput('state',b);dirty.delete('state');keepQ();lss('orga-rseen',j.t);S=s;ensure();render();toast('Mis à jour depuis ton autre appareil')}}catch{syncErr=1}syncUI()}
+async function pull(){if(!R||!key||busy)return;try{if(await saltMoved()){toast('Ton coffre a été remplacé depuis un autre appareil : déverrouille-le à nouveau');return setTimeout(()=>location.reload(),2200)}const{t}=await rcall('meta','state');syncErr=0;if(t>+(lsg('orga-rseen')||0)){if(dirty.has('state')&&+(lsg('orga-ledit')||0)>t)return flush();const j=await rcall('get','state');if(j.v==null)return;const b=b64d(j.v),s=JSON.parse(D.decode(await dec(b)));await lput('state',b);dirty.delete('state');keepQ();lss('orga-rseen',j.t);S=s;ensure();applyTh(S.th);render();toast('Mis à jour depuis ton autre appareil')}}catch{syncErr=1}syncUI()}
 if(R){addEventListener('online',()=>{flush();pull()});document.addEventListener('visibilitychange',()=>{if(!document.hidden){flush();pull()}});setInterval(()=>{if(!document.hidden){flush();pull()}},60000)}
 /* connecter cet appareil : colle le lien de synchro ; on rapproche les données de l'appareil et celles du Drive */
 async function syncSetup(){const o=await dlg('Synchronisation Google Drive',[{n:'l',l:'Lien de synchro',v:lsg('orga-sync')||'',ph:'https://script.google.com/macros/s/…/exec#…'}],R?'Enregistrer':'Connecter',0,{msg:'Colle le lien de synchro (le même sur tous tes appareils). Tes données restent chiffrées avec ton mot de passe.'});if(!o)return;
@@ -442,19 +470,22 @@ if(first){if(pw!==$('#pw2').value)return er('Les deux mots de passe sont différ
 else{if(R)await prePull();const sl=await get('salt');if(!sl)return er('Aucune donnée trouvée dans ce dossier.');key=await derive(pw,sl);S=JSON.parse(D.decode(await dec(await get('state'))))}const b4=JSON.stringify(S);ensure();if(first||JSON.stringify(S)!==b4)await save()}
 catch{key=null;return er(first?'Impossible de créer le coffre.':'Mot de passe incorrect.')}
 if(dir)autoBk().catch(()=>{});
-['click','keydown'].forEach(ev=>addEventListener(ev,()=>{clearTimeout(idle);idle=setTimeout(()=>location.reload(),600000)}));render();if(S.name===undefined)setName();if(R){if(lsg('orga-updocs')){S.docs.forEach(d=>dirty.add('doc:'+d.id));lss('orga-updocs',null);keepQ()}flush()}}
+['click','keydown'].forEach(ev=>addEventListener(ev,()=>{clearTimeout(idle);idle=setTimeout(()=>location.reload(),600000)}));applyTh(S.th);lss('orga-th',JSON.stringify(S.th||null));render();if(S.name===undefined)setName();if(R){if(lsg('orga-updocs')){S.docs.forEach(d=>dirty.add('doc:'+d.id));lss('orga-updocs',null);keepQ()}flush()}}
 /* ---------- popups maison (aucune popup du navigateur) ---------- */
 function toast(m,bad){const t=document.createElement('div');t.className='toast gl';t.innerHTML=(bad?'':ic('check'))+esc(m);document.body.appendChild(t);setTimeout(()=>t.classList.add('out'),1900);setTimeout(()=>t.remove(),2300)}
 const sh=x=>x.show?`data-show="${x.show}"`:'';
 const fH=x=>Array.isArray(x)?`<div class="frow">${x.map(fH).join('')}</div>`:
 x.t==='select'?`<label ${sh(x)}>${x.l}<select name="${x.n}">${x.o.map(c=>`<option value="${esc(c[0])}" ${String(c[0])===String(x.v)?'selected':''}>${esc(c[1])}</option>`).join('')}</select></label>`:
+x.t==='colors'?`<fieldset class="fcol" ${sh(x)}><legend>${x.l}</legend><div class="swat">${ECOL.map(([v,n,c])=>`<label title="${n}"><input type="radio" name="${x.n}" value="${v}" ${String(x.v??'')===v?'checked':''}><i style="background:${c}"></i></label>`).join('')}</div></fieldset>`:
+x.t==='days'?`<fieldset class="fcol" ${sh(x)}><legend>${x.l}</legend><div class="days">${JS7.map((d,i)=>`<label><input type="checkbox" name="${x.n}${i}" ${(x.v||[]).map(Number).includes(i)?'checked':''}><span>${d}</span></label>`).join('')}</div></fieldset>`:
+x.t==='color'?`<label ${sh(x)}>${x.l}<input type="color" name="${x.n}" value="${esc(x.v||'#7a55e8')}"></label>`:
 x.t==='check'?`<label class="swl" ${sh(x)}><span>${x.l}${x.h?`<small>${x.h}</small>`:''}</span><input type="checkbox" class="sw" name="${x.n}" ${x.v?'checked':''}></label>`:
 x.t==='area'?`<label ${sh(x)}>${x.l}<textarea name="${x.n}" placeholder="${esc(x.ph||'')}">${esc(x.v||'')}</textarea></label>`:
 `<label ${sh(x)}>${x.l}<input name="${x.n}" type="${x.t||'text'}" ${x.t==='number'?'step="any" inputmode="decimal"':''} value="${esc(x.v??'')}" placeholder="${esc(x.ph||'')}" ${x.r?'required':''}></label>`;
 function dlg(t,f=[],ok='Valider',dg,o={}){return new Promise(r=>{const v=document.createElement('div');v.className='ov';
 v.innerHTML=`<form class="md" novalidate autocomplete="off">${o.icon?`<div class="mi0 ${dg?'r':''}">${ic(o.icon)}</div>`:''}<h2>${t}</h2>${o.msg?`<p class="msg">${o.msg}</p>`:''}${f.map(fH).join('')}<p class="er"></p><div class="ac">${o.del?`<button type="button" class="btn g l" data-del style="color:var(--bad)">${ic('trash')} Supprimer</button>`:''}<button type="button" class="btn g" data-no>Annuler</button><button class="btn ${dg?'dg':''}">${ok}</button></div></form>`;
 document.body.appendChild(v);const fm=v.querySelector('form');enh(v);
-const upS=()=>v.querySelectorAll('[data-show]').forEach(el=>{const[n,x]=el.dataset.show.split('=');el.style.display=fm.elements[n]&&fm.elements[n].value===x?'':'none'});upS();fm.addEventListener('change',upS);
+const upS=()=>v.querySelectorAll('[data-show]').forEach(el=>{const s=el.dataset.show,ng=s.includes('!='),[n,x]=s.split(ng?'!=':'='),fv=fm.elements[n]?fm.elements[n].value:undefined;el.style.display=fv!==undefined&&(ng?fv!==x:fv===x)?'':'none'});upS();fm.addEventListener('change',upS);
 const esk=e=>{if(e.key==='Escape'&&!POP){e.preventDefault();c(null)}};document.addEventListener('keydown',esk,true);
 const c=x=>{document.removeEventListener('keydown',esk,true);closePop();v.classList.add('out');setTimeout(()=>v.remove(),180);r(x)};
 v.querySelector('[data-no]').onclick=()=>c(null);const dl=v.querySelector('[data-del]');if(dl)dl.onclick=()=>c({__del:true});
@@ -557,7 +588,7 @@ else if(!S.bl){S.bl=[];const ix={};Object.keys(S.bud||{}).sort().forEach(y=>S.bu
 S.ev=S.ev||[];S.docs=S.docs||[];
 S.sp=S.sp||{s:[],g:3};S.sp.acts=S.sp.acts||[...ACT];S.dm=S.dm||{it:[],ok:{}};S.dm.it.forEach(x=>{x.f=x.f||'m';x.c=x.c||'Administratif'});
 S.bl.forEach(l=>{if(l.dt===undefined)l.dt=/courses|restaurant|sorties|shopping|carburant/i.test(l.l);l.det=l.det||{};l.p=l.p||{};l.r=l.r||{}});
-S.goals=S.goals||[];S.goals.forEach(g=>{g.steps=g.steps||[];g.c=g.c||'Finance';g.st=g.st||'En cours';g.note=g.note||'';g.cur=g.cur||0;g.tg=g.tg||0;g.u=g.u||''})}
+S.pj=S.pj||[];S.goals=S.goals||[];S.goals.forEach(g=>{g.steps=g.steps||[];g.c=g.c||'Finance';g.st=g.st||'En cours';g.note=g.note||'';g.cur=g.cur||0;g.tg=g.tg||0;g.u=g.u||''})}
 /* ---------- calculs : md = p (prévu), r (réel), e (écart) ---------- */
 const hasD=(l,k)=>!!(l.det&&l.det[k]&&l.det[k].length),rv=(l,k)=>hasD(l,k)?l.det[k].reduce((a,e)=>a+e.a,0):(l.r[k]||0),OP={};
 const cv=(l,k,md)=>{if(md==='e'){const d=rv(l,k)-(l.p[k]||0);return S.secs.find(x=>x.id===l.sec).t==='dep'?-d:d}return md==='r'?rv(l,k):(l.p[k]||0)};
@@ -635,10 +666,47 @@ R.push([]);R.push(['DÉTAIL','Ligne','Mois','Libellé','Montant']);S.bl.forEach(
 const b=new Blob(['﻿'+R.map(r=>r.map(v=>`"${(typeof v==='number'?String(Math.round(v*100)/100).replace('.',','):String(v)).replace(/"/g,'""')}"`).join(';')).join('\n')],{type:'text/csv'}),nm=`budget-${W[0]}.csv`;
 if(dir){const d=await dir.getDirectoryHandle('exports',{create:true}),w=await(await d.getFileHandle(nm,{create:true})).createWritable();await w.write(b);await w.close();info('Export enregistré dans le dossier : exports/'+nm)}else{dl(b,nm);toast('Export téléchargé')}}
 /* ---------- calendrier ---------- */
-const evF=e=>[{n:'l',l:'Événement',v:e?.l,r:1,ph:'ex. Rendez-vous dentiste'},[{n:'d',l:'Date',t:'date',v:e?.d||today(),r:1},{n:'h',l:'Heure (option)',v:e?.h||'',ph:'14:30'}]];
-async function addEv(d){const o=await dlg('Nouvel événement',evF({d:d||today()}),'Ajouter');if(!o)return;S.ev.push({id:uid(),d:o.d,l:o.l.trim(),h:o.h.trim()});await save();render();toast('Événement ajouté')}
-async function evEd(id){const e=S.ev.find(x=>x.id===id),o=await dlg('Modifier l’événement',evF(e),'Enregistrer',0,{del:1});if(!o)return;if(o.__del){S.ev=S.ev.filter(x=>x.id!==id);toast('Événement supprimé')}else Object.assign(e,{d:o.d,l:o.l.trim(),h:o.h.trim()});await save();render()}
+/* ---------- calendrier : événements avancés (horaires, répétition, couleur, rappel, lieu, notes) ---------- */
+const ECOL=[['','Couleur du thème','var(--pop)'],['1','Lavande','#7986cb'],['2','Sauge','#33b679'],['3','Raisin','#8e24aa'],['4','Flamant','#e67c73'],['5','Banane','#f6bf26'],['6','Mandarine','#f4511e'],['7','Paon','#039be5'],['8','Graphite','#616161'],['9','Myrtille','#3f51b5'],['10','Basilic','#0b8043'],['11','Tomate','#d50000']];
+const ecol=c=>(ECOL.find(x=>x[0]===String(c??''))||ECOL[0])[2];
+const RFQ=[['','Ne se répète pas'],['d','Tous les jours'],['w','Toutes les semaines'],['m','Tous les mois'],['y','Tous les ans']],RU={d:'jour',w:'semaine',m:'mois',y:'an'};
+const RMD=[['','Pas de rappel'],['0','À l’heure de l’événement'],['5','5 min avant'],['15','15 min avant'],['30','30 min avant'],['60','1 h avant'],['120','2 h avant'],['1440','La veille'],['2880','2 jours avant'],['10080','1 semaine avant']];
+const JS7=['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
+/* dates (ISO) où l'événement e a lieu entre a et b inclus */
+function evDates(e,a,b){const out=[],ex=new Set(e.ex||[]),ok=d=>d>=a&&!ex.has(d)&&out.push(d);if(!e.r){if(e.d<=b)ok(e.d);return out}
+const iv=Math.max(1,+e.ri||1),until=e.re==='date'&&e.ru?e.ru:'9999-12-31',maxN=e.re==='count'?Math.max(1,+e.rn||1):1e9,[Y,M,Dd]=e.d.split('-').map(Number);let n=0;
+if(e.r==='w'&&e.wd&&e.wd.length){const mon=addD(e.d,-((new Date(e.d+'T12:00').getDay()+6)%7)),days=[...e.wd].map(Number).sort();
+for(let i=0;i<3000&&n<maxN;i++){const ws=addD(mon,i*7*iv);if(ws>b||ws>until)break;for(const w of days){const d=addD(ws,w);if(d<e.d)continue;if(d>until||d>b||n>=maxN)return out;n++;ok(d)}}return out}
+for(let i=0;i<6000&&n<maxN;i++){let d;
+if(e.r==='d')d=addD(e.d,i*iv);else if(e.r==='w')d=addD(e.d,i*7*iv);
+else if(e.r==='m'){const t=new Date(Y,M-1+i*iv,1);if(new Date(t.getFullYear(),t.getMonth()+1,0).getDate()<Dd)continue;d=iso(new Date(t.getFullYear(),t.getMonth(),Dd))}
+else{const yy=Y+i*iv;if(M===2&&Dd===29&&new Date(yy,1,29).getMonth()!==1)continue;d=`${yy}-${pad(M)}-${pad(Dd)}`}
+if(d>until||d>b)break;n++;ok(d)}return out}
+/* toutes les occurrences [date, événement] entre a et b, triées */
+const evOcc=(a,b)=>S.ev.flatMap(e=>evDates(e,a,b).map(d=>[d,e])).sort((x,y)=>(x[0]+(x[1].h||'')).localeCompare(y[0]+(y[1].h||'')));
+const evWhen=e=>e.h?e.h+(e.he?'–'+e.he:''):'Toute la journée';
+const evRep=e=>{if(!e.r)return'';const iv=+e.ri||1,u=RU[e.r];let s=iv>1?`Tous les ${iv} ${u==='mois'?'mois':u+'s'}`:RFQ.find(x=>x[0]===e.r)[1];
+if(e.r==='w'&&e.wd?.length)s+=' ('+[...e.wd].map(Number).sort().map(i=>JS7[i].toLowerCase()).join(', ')+')';if(e.re==='date'&&e.ru)s+=' jusqu’au '+fr(e.ru);if(e.re==='count')s+=`, ${e.rn} fois`;return s};
+const evF=e=>[{n:'l',l:'Titre',v:e?.l,r:1,ph:'ex. Rendez-vous dentiste'},
+[{n:'d',l:'Date',t:'date',v:e?.d||today(),r:1},{n:'h',l:'Début (vide = journée)',t:'time',v:e?.h||''},{n:'he',l:'Fin',t:'time',v:e?.he||''}],
+{n:'c',l:'Couleur',t:'colors',v:e?.c??''},
+{n:'r',l:'Répétition',t:'select',v:e?.r||'',o:RFQ},
+{n:'wd',l:'Les jours (vide = même jour que la date)',t:'days',v:e?.wd||[],show:'r=w'},
+[{n:'ri',l:'Tous les… (intervalle)',t:'number',v:e?.ri||1,show:'r!='},{n:'re',l:'Fin de la répétition',t:'select',v:e?.re||'',o:[['','Jamais'],['date','À une date'],['count','Après un nombre de fois']],show:'r!='}],
+[{n:'ru',l:'Jusqu’au',t:'date',v:e?.ru||'',show:'re=date'},{n:'rn',l:'Nombre de fois',t:'number',v:e?.rn||10,show:'re=count'}],
+[{n:'rm',l:'Rappel',t:'select',v:e?.rm??'',o:RMD},{n:'lo',l:'Lieu',v:e?.lo||'',ph:'(option)'}],
+{n:'no',l:'Notes',t:'area',v:e?.no||''}];
+const evRead=(o,old={})=>({...old,l:o.l.trim(),d:o.d,h:o.h||'',he:o.h?o.he||'':'',c:o.c||'',r:o.r||'',ri:Math.max(1,parseInt(o.ri)||1),re:o.r?o.re||'':'',ru:o.ru||'',rn:Math.max(1,parseInt(o.rn)||1),wd:o.r==='w'?[0,1,2,3,4,5,6].filter(i=>o['wd'+i]):[],rm:o.rm??'',lo:(o.lo||'').trim(),no:(o.no||'').trim()});
+async function addEv(d){const o=await dlg('Nouvel événement',evF({d:d||today()}),'Ajouter');if(!o)return;S.ev.push({id:uid(),...evRead(o)});await save();render();calPush();toast('Événement ajouté')}
+async function evEd(id,on){const e=S.ev.find(x=>x.id===id);if(!e)return;const o=await dlg('Modifier l’événement',evF(e),'Enregistrer',0,{del:1,msg:e.r?'Les modifications s’appliquent à toute la série.':''});if(!o)return;
+if(o.__del){let all=!e.r||!on;if(!all){const c=await dlg('Supprimer quel événement ?',[{n:'w',l:'',t:'select',v:'one',o:[['one','Seulement celui du '+fr(on)],['all','Toute la série']]}],'Supprimer',1);if(!c)return;all=c.w==='all'}
+if(all)S.ev=S.ev.filter(x=>x.id!==id);else e.ex=[...(e.ex||[]),on];toast('Supprimé')}else Object.assign(e,evRead(o,e));await save();render();calPush()}
 const mstep=d=>{month=mk(mi(month)+d);render()};
+/* ---------- Google Agenda (via le coffre) : envoi des événements (avec rappels = notifications) et affichage des événements Google ---------- */
+const TZ=(()=>{try{return Intl.DateTimeFormat().resolvedOptions().timeZone}catch{return'Europe/Paris'}})();
+let GEV={},gFetch={},calT;
+function calPush(now){if(!R||!S?.gc?.push)return Promise.resolve();clearTimeout(calT);return new Promise(res=>{calT=setTimeout(async()=>{try{const j=await rcall('cal','',JSON.stringify({tz:TZ,evs:S.ev.map(e=>({id:e.id,l:e.l,d:e.d,h:e.h||'',he:e.he||'',c:e.c||'',r:e.r||'',ri:e.ri||1,re:e.re||'',ru:e.ru||'',rn:e.rn||1,wd:e.wd||[],rm:e.rm??'',lo:e.lo||'',no:e.no||'',ex:e.ex||[]}))}));res(j)}catch(err){toast(/op/.test(err.message)?'Google Agenda : mets à jour ton coffre (Réglages)':'Google Agenda : synchro impossible pour l’instant',1);res(null)}},now?0:1500)})}
+async function calPull(k){if(!R||!S?.gc?.show||gFetch[k])return;gFetch[k]=1;try{const j=await rcall('calget',k,TZ);GEV[k]=j.evs||[];if(view==='cal'&&month===k)render()}catch{gFetch[k]=0}}
 /* ---------- sport ---------- */
 const wk=d=>{const x=new Date(d+'T12:00');x.setDate(x.getDate()-(x.getDay()+6)%7);return iso(x)};
 async function spa(id){const x=id?S.sp.s.find(z=>z.id===id):null,A=S.sp.acts;
@@ -672,8 +740,9 @@ async function stAdd(e,id){e.preventDefault();const v=e.target.t.value.trim();if
 async function stTog(id,sid){const s=GG(id).steps.find(x=>x.id===sid);s.ok=!s.ok;await save();render()}
 async function stDel(id,sid){const g=GG(id);g.steps=g.steps.filter(x=>x.id!==sid);await save();render()}
 const so=(a,v,fn)=>`<select onchange="${fn}">${a.map(c=>`<option ${c===v?'selected':''}>${c}</option>`).join('')}</select>`;
-function occ(y,m){const pr=`${y}-${pad(m+1)}`,o={},p=(d,t,c,id)=>(o[+d]=o[+d]||[]).push([t,c,id]),nd=new Date(y,m+1,0).getDate();
-S.ev.filter(e=>e.d.startsWith(pr)).sort((a,b)=>(a.h||'').localeCompare(b.h||'')).forEach(e=>p(e.d.slice(8),(e.h?e.h+' · ':'')+e.l,'',e.id));
+function occ(y,m){const pr=`${y}-${pad(m+1)}`,o={},p=(d,t,c,id,col,on)=>(o[+d]=o[+d]||[]).push([t,c,id,col,on]),nd=new Date(y,m+1,0).getDate();
+evOcc(`${pr}-01`,`${pr}-${pad(nd)}`).forEach(([d,e])=>p(d.slice(8),(e.h?e.h+' · ':'')+e.l,'',e.id,ecol(e.c),d));
+(GEV[pr]||[]).forEach(g=>p(g.d.slice(8),(g.h?g.h+' · ':'')+g.t,'gg',null,g.c));
 S.goals.filter(g=>g.d&&g.d.startsWith(pr)&&g.st!=='Terminé').forEach(g=>p(g.d.slice(8),'Échéance : '+g.l,'g'));
 S.dm.it.filter(x=>x.j&&dmAp(x,pr)&&!(S.dm.ok[pr]||{})[x.id]).forEach(x=>p(Math.min(+x.j,nd),x.l,'d'));
 S.sp.s.filter(x=>x.d.startsWith(pr)).forEach(x=>p(x.d.slice(8),x.a+' '+x.m+' min','s'));return o}
@@ -683,7 +752,7 @@ const empty=(t,s)=>`<div class="empty"><b>${t}</b>${s}</div>`;
 const V={
 home(){ensure();const d=new Date(),k=cur(),c=(t,md)=>t==='sol'?sol(k,md):ts(t,k,md),W=win(k),hr=S.bl.some(l=>W.some(x=>rv(l,x))),hb=hr?'r':'p';
 const kp=(t,l)=>{const r=c(t,'r'),p=c(t,'p'),col=TC[t],ov=t==='dep'&&r>p&&p>0,pc=p>0?Math.min(100,100*r/p):0;return`<div class="card kpi"><div class="lb"><i class="dot ${t==='ep'?'hatch':''}" style="background:${col}"></i>${l}</div><div class="big ${t==='sol'&&r<0?'neg':''}">${eur0(r)}</div>${t==='sol'?`<div class="mut sm2">prévu ${eur0(p)} · ${r-p>=0?`<span class="ok">+${eur0(r-p)}</span>`:`<span class="neg">−${eur0(p-r)}</span>`}</div>`:`<div class="bar"><i class="${t==='ep'?'hatch':''}" style="width:${pc}%;background:${ov?'var(--bad)':col}"></i></div><div class="mut sm2" style="margin-top:.4rem">prévu ${eur0(p)}${p?` · ${Math.round(100*r/p)} %`:''}</div>`}</div>`};
-const up=S.ev.filter(e=>e.d>=today()).sort((a,b)=>(a.d+(a.h||'')).localeCompare(b.d+(b.h||''))).slice(0,5),act=S.goals.filter(g=>g.st!=='Terminé').slice(0,4);
+const up=evOcc(today(),addD(today(),120)).slice(0,5).map(([d,e])=>({...e,d})),act=S.goals.filter(g=>g.st!=='Terminé').slice(0,4);
 const tk=today().slice(0,7),its=S.dm.it.filter(x=>dmAp(x,tk)),okm=S.dm.ok[tk]||{},nd=its.filter(x=>okm[x.id]).length,todo=its.filter(x=>!okm[x.id]).slice(0,4);
 const w=wk(today()),tw=S.sp.s.filter(x=>wk(x.d)===w),g=S.sp.g,hh=d.getHours();
 return`<header class="hero"><div class="pill"><i></i><span>${cap(d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'}))}</span><i></i></div><h1 onclick="setName()" title="Modifier mon prénom" style="cursor:pointer">${hh<5||hh>=18?'Bonsoir':'Bonjour'}${S.name?' '+esc(S.name):''}.</h1><p class="sub">Budget de ${mlab(k)}</p></header>
@@ -749,21 +818,93 @@ return`<h1>Documents</h1><p class="sub">Les fichiers sont chiffrés avant d’ê
 <div class="card"><div class="tb" style="margin-bottom:.6rem"><h2 style="margin:0">Mes documents</h2><span class="seg">${['Tous',...DOCS].map(c=>`<button class="${c===dfil?'on':''}" onclick="setF('${c}')">${c}</button>`).join('')}</span></div><div class="tw"><table class="tl"><tr><th>Date</th><th>Titre</th><th>Type</th><th></th></tr>${l.map(d=>`<tr><td>${fr(d.d)}</td><td><b>${esc(d.l)}</b><div class="mut sm2">${esc(d.name)} · ${ko(d.size||0)}</div></td><td><span class="chip">${esc(d.c)}</span></td><td style="white-space:nowrap;text-align:right"><button class="btn g sm" onclick="getDoc('${d.id}',1)">Ouvrir</button> <button class="ib" title="Télécharger" onclick="getDoc('${d.id}')">${ic('save')}</button><button class="ib del" title="Supprimer" onclick="rm('docs','${d.id}')">${ic('trash')}</button></td></tr>`).join('')||`<tr><td colspan="4">${empty('Aucun document','Range ta première fiche de paye ou facture ci-dessus.')}</td></tr>`}</table></div></div>`},
 cal(){const[y,m]=month.split('-').map(Number),o=occ(y,m-1),first=(new Date(y,m-1,1).getDay()+6)%7,n=new Date(y,m,0).getDate(),t=today();
 let c=['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'].map(d=>`<div class="h">${d}</div>`).join('')+'<div class="cd o"></div>'.repeat(first);
-for(let i=1;i<=n;i++){const k=`${month}-${pad(i)}`,L=o[i]||[];c+=`<div class="cd ${t===k?'t':''} ${(first+i-1)%7>4?'we':''}" onclick="addEv('${k}')" title="Ajouter un événement le ${fr(k)}"><b>${i}</b>${L.slice(0,4).map(([x,s,id])=>`<span class="tag ${s}" ${id?`onclick="event.stopPropagation();evEd('${id}')"`:''} title="${esc(x)}">${esc(x)}</span>`).join('')}${L.length>4?`<span class="mut" style="font-size:.66rem">+${L.length-4}</span>`:''}</div>`}
+for(let i=1;i<=n;i++){const k=`${month}-${pad(i)}`,L=o[i]||[];c+=`<div class="cd ${t===k?'t':''} ${(first+i-1)%7>4?'we':''}" onclick="addEv('${k}')" title="Ajouter un événement le ${fr(k)}"><b>${i}</b>${L.slice(0,4).map(([x,s,id,col,on])=>`<span class="tag ${s}" ${col?`style="--tc:${col}"`:''} ${id?`onclick="event.stopPropagation();evEd('${id}','${on}')"`:''} title="${esc(x)}">${esc(x)}</span>`).join('')}${L.length>4?`<span class="mut" style="font-size:.66rem">+${L.length-4}</span>`:''}</div>`}
 const tr=(7-(first+n)%7)%7;c+='<div class="cd o"></div>'.repeat(tr);
-const ev=S.ev.filter(e=>e.d.startsWith(month)).sort((a,b)=>(a.d+(a.h||'')).localeCompare(b.d+(b.h||'')));
+const ev=evOcc(`${month}-01`,`${month}-${pad(n)}`);calPull(month);
 return`<h1>Calendrier</h1><p class="sub">Clique sur un jour pour y ajouter un événement, sur un événement pour le modifier.</p>
 <div class="card"><div class="tb" style="margin-bottom:1rem">${mnav('mstep',month,{f:'setM'})}<div class="r">${month!==t.slice(0,7)?`<button class="btn g sm" onclick="setM('${t.slice(0,7)}')">Aujourd’hui</button>`:''}<button class="btn" onclick="addEv()">${ic('plus')} Événement</button></div></div><div class="cal">${c}</div>
-<div class="cl"><span class="tag">Événements</span><span class="tag g">Échéances d’objectifs</span><span class="tag d">Démarches à faire</span><span class="tag s">Séances de sport</span></div></div>
-<div class="card"><h2>Événements de ${MOF[m-1]}</h2>${ev.map(e=>`<div class="li"><div style="text-align:center;min-width:42px"><div style="font-size:1.2rem;font-weight:750;line-height:1">${+e.d.slice(8)}</div><div class="mut" style="font-size:.7rem;text-transform:uppercase">${new Date(e.d+'T12:00').toLocaleDateString('fr-FR',{weekday:'short'})}</div></div><div class="lt"><b>${esc(e.l)}</b>${e.h?`<span class="mut sm2">${esc(e.h)}</span>`:''}</div><button class="ib" title="Modifier" onclick="evEd('${e.id}')">${ic('edit')}</button><button class="ib del" title="Supprimer" onclick="rm('ev','${e.id}')">${ic('trash')}</button></div>`).join('')||empty('Aucun événement ce mois-ci','Clique sur un jour du calendrier pour en ajouter un.')}</div>`}};
+<div class="cl"><span class="tag">Événements</span><span class="tag g">Échéances d’objectifs</span><span class="tag d">Démarches à faire</span><span class="tag s">Séances de sport</span>${S.gc?.show?'<span class="tag gg">Google Agenda</span>':''}</div></div>
+<div class="card"><h2>Événements de ${MOF[m-1]}</h2>${ev.map(([d,e])=>`<div class="li" style="cursor:pointer" onclick="evEd('${e.id}','${d}')"><div style="text-align:center;min-width:42px"><div style="font-size:1.2rem;font-weight:750;line-height:1">${+d.slice(8)}</div><div class="mut" style="font-size:.7rem;text-transform:uppercase">${new Date(d+'T12:00').toLocaleDateString('fr-FR',{weekday:'short'})}</div></div><i class="dot" style="background:${ecol(e.c)};width:12px;height:12px"></i><div class="lt"><b>${esc(e.l)}</b><div class="meta"><span class="mut">${evWhen(e)}</span>${e.lo?`<span class="mut">· ${esc(e.lo)}</span>`:''}${e.r?`<span class="chip">${ic('rep').replace('<svg','<svg style="width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2.4"')} ${evRep(e)}</span>`:''}${e.rm!==''&&e.rm!=null?`<span class="chip">${RMD.find(x=>x[0]===String(e.rm))?.[1]||''}</span>`:''}</div></div><button class="ib" title="Modifier" onclick="event.stopPropagation();evEd('${e.id}','${d}')">${ic('edit')}</button></div>`).join('')||empty('Aucun événement ce mois-ci','Clique sur un jour du calendrier pour en ajouter un.')}</div>`}};
+/* ---------- thème personnalisé : 3 couleurs, règle 60 / 30 / 10 ---------- */
+const THP=[['Nuit violette','#06040e','#0f0c17','#7a55e8'],['Océan','#04101a','#0b1c2b','#2fb5d6'],['Forêt','#06100b','#0e1d15','#4fbf7f'],['Braise','#0f0907','#1c1310','#f26b3a'],['Ardoise','#0d0f12','#181b20','#e6c35c'],['Rose nuit','#100710','#1d1020','#e9579a'],['Sable (clair)','#f3eee6','#ffffff','#c2562b'],['Lin (clair)','#eef0f4','#ffffff','#4b5bd6']];
+const hx=h=>{h=String(h).replace('#','');if(h.length===3)h=[...h].map(c=>c+c).join('');const n=parseInt(h,16)||0;return[n>>16&255,n>>8&255,n&255]};
+const lum=h=>{const c=hx(h).map(v=>{v/=255;return v<=.03928?v/12.92:((v+.055)/1.055)**2.4});return .2126*c[0]+.7152*c[1]+.0722*c[2]};
+const mix=(a,b,t)=>'#'+hx(a).map((v,i)=>Math.round(v+(hx(b)[i]-v)*t).toString(16).padStart(2,'0')).join('');
+const rgba=(h,a)=>`rgba(${hx(h).join(',')},${a})`;
+const TK=['--bg','--glass','--glass3','--stk','--stk2','--in','--ink','--mut','--acc','--on','--ln','--fill','--fill2','--tint','--bd','--sheen','--pop','--pop-t','--ring','--glow','--rev','--dep','--ep','--hz-core','--hz-ink'];
+function applyTh(t){const r=document.documentElement;TK.forEach(k=>r.style.removeProperty(k));if(!t||!t.on){applyTheme();return}
+const{a,b,c}=t,dark=lum(a)<.2,ink=dark?'#f1eff6':'#16141b',set=(k,v)=>r.style.setProperty(k,v);r.classList.toggle('dark',dark);
+set('--bg',a);set('--glass',b);set('--glass3',mix(b,ink,.06));set('--stk',b);set('--stk2',mix(b,ink,.04));set('--in',dark?mix(a,b,.5):mix(b,a,.35));
+set('--ink',ink);set('--mut',mix(ink,b,.4));set('--acc',ink);set('--on',dark?a:'#fff');
+set('--ln',rgba(ink,.09));set('--fill',rgba(ink,.055));set('--fill2',rgba(ink,.1));set('--tint',rgba(ink,.08));set('--bd',rgba(ink,.07));set('--sheen',rgba(ink,.03));
+set('--pop',c);set('--pop-t',rgba(c,.2));set('--ring',rgba(c,.45));set('--glow',rgba(c,.5));
+set('--rev',ink);set('--dep',mix(ink,b,.5));set('--ep',mix(ink,c,.45));set('--hz-core',dark?a:mix(a,'#000000',.85));set('--hz-ink','#fff');
+document.querySelector('meta[name=theme-color]')?.setAttribute('content',a)}
+try{applyTh(JSON.parse(lsg('orga-th')||'null'))}catch{}
+async function thSet(t){S.th=t;lss('orga-th',JSON.stringify(t));applyTh(t);await save();render()}
+const thPreset=i=>{const[,a,b,c]=THP[i];thSet({on:true,a,b,c})};
+const thLive=()=>applyTh({on:true,a:$('#th-a').value,b:$('#th-b').value,c:$('#th-c').value});
+const thSave=()=>thSet({on:true,a:$('#th-a').value,b:$('#th-b').value,c:$('#th-c').value});
+/* ---------- réglages ---------- */
+async function gcSet(k,v){S.gc={...(S.gc||{}),[k]:v};await save();if(k==='push'&&v){toast('Envoi vers Google Agenda…');const j=await calPush(1);if(j)toast(`Google Agenda à jour (${j.n} événement${j.n>1?'s':''})`)}if(k==='show'){GEV={};gFetch={}}render()}
+async function calNow(){toast('Synchronisation…');const j=await calPush(1);GEV={};gFetch={};if(j)toast(`Google Agenda à jour (${j.n} événement${j.n>1?'s':''})`);render()}
+async function copyVault(){if(!R)return toast('Connecte d’abord Google Drive',1);try{const t=(await(await fetch('coffre.txt',{cache:'no-store'})).text()).replace("'SECRET_A_REMPLACER'","'"+R.s+"'");await navigator.clipboard.writeText(t);info('Programme du coffre copié. Dans Apps Script : ouvre Code.gs, Ctrl+A, Ctrl+V, Ctrl+S, puis Déployer → Gérer les déploiements → crayon → Nouvelle version → Déployer. Google te demandera d’autoriser l’accès à ton agenda : accepte.')}catch{toast('Copie impossible : réessaie depuis un ordinateur',1)}}
+V.set=function(){const t=S.th||{},cur=t.on?t:{a:'#06040e',b:'#0f0c17',c:'#7a55e8'},g=S.gc||{};
+const sw=(l,h,k,v)=>`<label class="thc"><input type="color" id="th-${k}" value="${v}" oninput="thLive()" onchange="thSave()"><span><b>${l}</b><small>${h}</small></span></label>`;
+return`<h1>Réglages</h1><p class="sub">Apparence, Google Agenda, notifications et synchronisation.</p>
+<div class="card"><h2>Apparence</h2><p class="mut sm2" style="margin:-.4rem 0 1rem">Choisis 3 couleurs selon la règle <b>60 / 30 / 10</b> : la dominante occupe le fond, la secondaire les cartes et le menu, l’accent les repères (onglet actif, cases cochées, halo).</p>
+<div class="thg">${THP.map(([n,a,b,c],i)=>`<button class="thp ${t.on&&t.a===a&&t.b===b&&t.c===c?'on':''}" onclick="thPreset(${i})"><span class="th3"><i style="background:${a};flex:6"></i><i style="background:${b};flex:3"></i><i style="background:${c};flex:1"></i></span>${n}</button>`).join('')}</div>
+<div class="thcs">${sw('Dominante · 60 %','Le fond','a',cur.a)}${sw('Secondaire · 30 %','Cartes et menu','b',cur.b)}${sw('Accent · 10 %','Repères et halo','c',cur.c)}</div>
+${t.on?`<button class="lnk" style="margin-top:.6rem" onclick="thSet(null)">Revenir au thème d’origine</button>`:''}</div>
+<div class="card"><h2>Google Agenda</h2>${R?`
+<label class="swl"><span>Envoyer mes événements dans Google Agenda<small>Dans un agenda « Mon organisation », avec répétitions, couleurs et rappels. Ces événements ne sont pas chiffrés chez Google.</small></span><input type="checkbox" class="sw" ${g.push?'checked':''} onchange="gcSet('push',this.checked)"></label>
+<label class="swl" style="margin-top:.5rem"><span>Afficher mes événements Google dans le calendrier<small>En lecture seule, avec un contour.</small></span><input type="checkbox" class="sw" ${g.show?'checked':''} onchange="gcSet('show',this.checked)"></label>
+<div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.9rem">${g.push||g.show?`<button class="btn" onclick="calNow()">${ic('rep')} Synchroniser maintenant</button>`:''}<button class="btn g" onclick="copyVault()">${ic('exp')} Copier le programme du coffre</button></div>
+<p class="hint">${ic('alert')}<span>Première fois : mets à jour ton coffre avec le bouton ci-dessus (une seule fois), puis active les options.</span></p>`:`<p class="mut sm2">Connecte d’abord Google Drive (plus bas) : c’est ton coffre qui parle à Google Agenda.</p>`}</div>
+<div class="card"><h2>Notifications</h2><p class="sm2" style="margin:0 0 .5rem">Les rappels de tes événements passent par <b>Google Agenda</b>, qui les envoie sur ton téléphone et ton ordinateur, même quand l’app est fermée.</p>
+<ol class="sm2" style="margin:0;padding-left:1.2rem;line-height:1.7"><li>Active « Envoyer mes événements dans Google Agenda » ci-dessus.</li><li>Choisis un <b>rappel</b> dans chaque événement (ex. « 30 min avant »).</li><li><b>iPhone</b> : installe l’app Google Agenda, ou va dans Réglages → Calendrier → Comptes → Ajouter un compte → Google. <b>Android</b> : Google Agenda est déjà installé. <b>PC</b> : ouvre calendar.google.com et autorise les notifications.</li></ol></div>
+<div class="card"><h2>Synchronisation et profil</h2><div style="display:flex;gap:.5rem;flex-wrap:wrap"><button class="btn g" onclick="syncSetup()">${ic('rest')} ${R?'Lien de synchro Google Drive':'Connecter Google Drive'}</button><button class="btn g" onclick="setName()">${ic('edit')} Mon prénom</button></div><p class="mut sm2" style="margin:.7rem 0 0">${R?'Synchronisé avec ton Google Drive.':'Cet appareil n’est pas synchronisé.'}</p></div>`};
+/* ---------- projets : budget détaillé, dépenses, épargne, tâches ---------- */
+const PST=['Idée','En cours','En pause','Terminé'],PCAT=['Matériel','Service','Transport','Administratif','Logement','Loisirs','Autre'];
+let pfil='Tous';const setPf=v=>{pfil=v;render()};
+const PJ=id=>S.pj.find(p=>p.id===id);
+const pjCalc=p=>{const eng=p.ln.reduce((a,l)=>a+(+l.a||0),0),paid=p.ln.filter(l=>l.ok).reduce((a,l)=>a+(+l.a||0),0),bud=+p.bud||0,sav=+p.sav||0;
+let mo=0;if(p.d1){const t=new Date(),e=new Date(p.d1+'T12:00');mo=Math.max(0,(e.getFullYear()-t.getFullYear())*12+e.getMonth()-t.getMonth())}
+const need=Math.max(0,Math.max(bud,eng)-sav),pm=mo>0?need/mo:need,tk=p.tk.length?p.tk.filter(x=>x.ok).length/p.tk.length:0;return{eng,paid,bud,sav,rest:bud-eng,mo,need,pm,tk}};
+async function pAdd(){const o=await dlg('Nouveau projet',[{n:'n',l:'Nom du projet',r:1,ph:'ex. Rénover la salle de bain'},[{n:'bud',l:'Budget prévu (€)',t:'number',ph:'0'},{n:'d1',l:'Échéance',t:'date'}],{n:'c',l:'Couleur',t:'colors',v:''}],'Créer');if(!o)return;
+S.pj.unshift({id:uid(),n:o.n.trim(),c:o.c||'',st:'En cours',d0:today(),d1:o.d1||'',bud:pn(o.bud),sav:0,ln:[],tk:[],note:''});await save();render();toast('Projet créé')}
+async function pSet(id,k,v,re){const p=PJ(id);p[k]=['bud','sav'].includes(k)?pn(v):v;await save();if(re!==0)render()}
+async function pDel(id){if(!await cf('Le projet, ses dépenses et ses tâches seront supprimés.','Supprimer ce projet ?'))return;S.pj=S.pj.filter(p=>p.id!==id);await save();render();toast('Projet supprimé')}
+async function pCol(id){const p=PJ(id),o=await dlg('Couleur du projet',[{n:'c',l:'',t:'colors',v:p.c||''}],'Choisir');if(o)pSet(id,'c',o.c||'')}
+async function plAdd(e,id){e.preventDefault();const F=e.target,l=F.l.value.trim(),a=pn(F.a.value);if(!l&&!a)return;PJ(id).ln.push({id:uid(),l:l||'Dépense',cat:F.cat.value,a,d:F.d.value||'',ok:false});await save();render()}
+async function plSet(id,lid,k,v){const l=PJ(id).ln.find(x=>x.id===lid);l[k]=k==='a'?pn(v):v;await save();render()}
+async function plDel(id,lid){const p=PJ(id);p.ln=p.ln.filter(x=>x.id!==lid);await save();render()}
+async function ptAdd(e,id){e.preventDefault();const t=e.target.t.value.trim();if(!t)return;PJ(id).tk.push({id:uid(),t,ok:false});await save();render()}
+async function ptTog(id,tid){const x=PJ(id).tk.find(t=>t.id===tid);x.ok=!x.ok;await save();render()}
+async function ptDel(id,tid){const p=PJ(id);p.tk=p.tk.filter(t=>t.id!==tid);await save();render()}
+V.proj=function(){const l=S.pj.filter(p=>pfil==='Tous'||p.st===pfil),all=S.pj.filter(p=>p.st!=='Terminé').map(pjCalc),T=k=>all.reduce((a,c)=>a+c[k],0);
+return`<h1>Projets</h1><p class="sub">Chaque projet a son budget, ses dépenses, son plan d’épargne et ses tâches.</p>
+<div class="card"><div class="tb"><span class="seg">${['Tous',...PST].map(c=>`<button class="${c===pfil?'on':''}" onclick="setPf('${c}')">${c}</button>`).join('')}</span><button class="btn" onclick="pAdd()">${ic('plus')} Projet</button></div>
+<div class="minis"><div class="mini"><div class="lb">Budgets prévus</div><b>${eur0(T('bud'))}</b><span class="mut">projets non terminés</span></div><div class="mini"><div class="lb">Engagé</div><b>${eur0(T('eng'))}</b><span class="mut">dont payé ${eur0(T('paid'))}</span></div><div class="mini"><div class="lb">Déjà mis de côté</div><b>${eur0(T('sav'))}</b><span class="mut">reste à financer ${eur0(T('need'))}</span></div><div class="mini"><div class="lb">À épargner / mois</div><b>${eur0(T('pm'))}</b><span class="mut">pour tenir les échéances</span></div></div></div>
+${l.map(p=>{const k=pjCalc(p),col=ecol(p.c),u=k.bud?Math.min(100,100*k.eng/k.bud):0,pp=k.bud?Math.min(100,100*k.paid/k.bud):0,over=k.bud&&k.eng>k.bud;
+return`<div class="card pj" style="--pc:${col}"><div class="gh">${ring(k.tk,58,col,Math.round(k.tk*100)+'%',6)}<div class="gt2"><input class="tt" value="${esc(p.n)}" onchange="pSet('${p.id}','n',this.value)"><div class="meta">${so(PST,p.st,`pSet('${p.id}','st',this.value)`)}<input type="date" value="${p.d0||''}" data-ph="Début" onchange="pSet('${p.id}','d0',this.value)"><input type="date" value="${p.d1||''}" data-ph="Échéance" onchange="pSet('${p.id}','d1',this.value)"><button class="ib" title="Couleur du projet" onclick="pCol('${p.id}')"><i class="dot" style="background:${col};width:14px;height:14px"></i></button></div></div><button class="ib del" title="Supprimer" onclick="pDel('${p.id}')">${ic('trash')}</button></div>
+<div class="minis"><label class="mini"><span class="lb">Budget prévu</span><input class="pin" inputmode="decimal" value="${nv(k.bud)}" placeholder="0" onfocus="this.select()" onchange="pSet('${p.id}','bud',this.value)"></label><div class="mini"><div class="lb">Engagé</div><b class="${over?'neg':''}">${eur0(k.eng)}</b><span class="mut">payé ${eur0(k.paid)}</span></div><div class="mini"><div class="lb">Reste du budget</div><b class="${k.rest<0?'neg':''}">${eur0(k.rest)}</b><span class="mut">${k.bud?Math.round(u)+' % engagé':'pas de budget'}</span></div><label class="mini"><span class="lb">Déjà mis de côté</span><input class="pin" inputmode="decimal" value="${nv(k.sav)}" placeholder="0" onfocus="this.select()" onchange="pSet('${p.id}','sav',this.value)"></label></div>
+<div class="bar pjb" style="margin:.9rem 0 .3rem;position:relative"><i style="width:${u}%;background:${over?'var(--bad)':col};opacity:.4;position:absolute;inset:0 auto 0 0"></i><i style="width:${pp}%;background:${over?'var(--bad)':col};position:absolute;inset:0 auto 0 0"></i></div>
+<p class="mut sm2" style="margin:.2rem 0 0">${k.need>0?(p.d1?(k.mo>0?`Pour financer le reste (${eur0(k.need)}) d’ici le ${fr(p.d1)} : <b style="color:var(--ink)">${eur0(k.pm)} / mois</b> pendant ${k.mo} mois.`:`Échéance atteinte : il reste <b style="color:var(--ink)">${eur0(k.need)}</b> à financer.`):`Reste à financer : <b style="color:var(--ink)">${eur0(k.need)}</b>. Ajoute une échéance pour calculer l’épargne mensuelle.`):(k.bud||k.eng?'<b class="ok">Projet entièrement financé.</b>':'Indique un budget et tes dépenses prévues.')}</p>
+<h2 style="margin:1.2rem 0 .4rem;font-size:.92rem">Dépenses du projet</h2><div class="tw"><table class="tl pjt"><tr><th>Payé</th><th>Dépense</th><th>Catégorie</th><th>Date</th><th class="n">Montant</th><th></th></tr>
+${p.ln.map(x=>`<tr><td><input type="checkbox" class="ck" ${x.ok?'checked':''} onchange="plSet('${p.id}','${x.id}','ok',this.checked)"></td><td><input class="nm" value="${esc(x.l)}" onchange="plSet('${p.id}','${x.id}','l',this.value)"></td><td>${so(PCAT,x.cat,`plSet('${p.id}','${x.id}','cat',this.value)`)}</td><td><input type="date" value="${x.d||''}" data-ph="—" onchange="plSet('${p.id}','${x.id}','d',this.value)"></td><td class="n"><input class="c" inputmode="decimal" value="${nv(x.a)}" onfocus="this.select()" onchange="plSet('${p.id}','${x.id}','a',this.value)"></td><td><button class="ib del" title="Retirer" onclick="plDel('${p.id}','${x.id}')">${ic('del')}</button></td></tr>`).join('')||`<tr><td colspan="6" class="mut sm2" style="text-align:center;padding:1rem">Aucune dépense pour l’instant.</td></tr>`}</table></div>
+<form class="row" style="margin-top:.6rem" onsubmit="plAdd(event,'${p.id}')"><input name="l" placeholder="Nouvelle dépense (ex. Carrelage)" style="flex:2;min-width:150px"><select name="cat">${PCAT.map(c=>`<option>${c}</option>`).join('')}</select><input name="d" type="date" data-ph="Date"><input name="a" inputmode="decimal" placeholder="Montant €" style="width:120px"><button class="btn g sm">${ic('plus')} Ajouter</button></form>
+<h2 style="margin:1.2rem 0 .4rem;font-size:.92rem">Tâches</h2>${p.tk.map(x=>`<div class="stp li"><input type="checkbox" class="ck" ${x.ok?'checked':''} onchange="ptTog('${p.id}','${x.id}')"><span class="${x.ok?'dn':''}" style="flex:1">${esc(x.t)}</span><button class="ib del" onclick="ptDel('${p.id}','${x.id}')">${ic('del')}</button></div>`).join('')}
+<form class="row" style="margin-top:.4rem" onsubmit="ptAdd(event,'${p.id}')"><input name="t" placeholder="Ajouter une tâche…" style="flex:1"><button class="btn g sm">${ic('plus')} Tâche</button></form>
+<textarea style="margin-top:.8rem" placeholder="Notes, liens, devis…" onchange="pSet('${p.id}','note',this.value,0)">${esc(p.note)}</textarea></div>`}).join('')||`<div class="card">${empty('Aucun projet ici','Clique sur « + Projet » pour en créer un.')}</div>`}`};
 async function setName(){const o=await dlg('Ton prénom',[{n:'n',l:'Prénom',v:S.name||'',ph:'ex. Camille'}],'Enregistrer',0,{msg:'Il s’affiche sur l’accueil. Il est gardé dans tes données chiffrées.'});S.name=o?o.n.trim():(S.name||'');await save();render()}
-function render(){closePop();const N=[['home','Accueil'],['bud','Budget'],['goals','Objectifs'],['sport','Sport'],['dem','Démarches'],['docs','Documents'],['cal','Calendrier']],th={auto:['auto','Thème : auto'],light:['sun','Thème : clair'],dark:['moon','Thème : sombre']}[theme],lt=dmLate();
-$('#app').innerHTML=`<div class="shell"><nav class="gl"><div class="brand"><span class="ico" aria-hidden="true"></span>Mon organisation</div>${N.map(([k,l])=>`<button class="nb ${k===view?'on':''}" onclick="go('${k}')">${ic(k)}<span>${l}</span>${k==='dem'&&lt?`<span class="bd">${lt}</span>`:''}</button>`).join('')}<span class="sp"></span>${FSA?`<button class="nb sm" onclick="pick()" title="Dossier de données">${ic('fold')}<span>${dir?esc(dir.name):'Choisir un dossier'}</span></button>`:''}<button class="nb sm" id="syn" onclick="syncSetup()">${ic('rest')}<span></span></button><button class="nb sm" onclick="bk()">${ic('save')}<span>Sauvegarder</span></button><button class="nb sm" onclick="this.nextElementSibling.click()">${ic('rest')}<span>Restaurer</span></button><input type="file" hidden accept=".json" onchange="imp(this.files[0])"><button class="nb sm" onclick="cyc()">${ic(th[0])}<span>${th[1]}</span></button><button class="nb sm" onclick="location.reload()">${ic('lock')}<span>Verrouiller</span></button></nav><main class="${view==='bud'?'wide':''} ${ANIM?'anim':''}">${V[view]()}</main></div>`;if(view==='bud')refresh();enh();ANIM=0;syncUI()}
+function render(){closePop();const N=[['home','Accueil'],['bud','Budget'],['goals','Objectifs'],['proj','Projets'],['sport','Sport'],['dem','Démarches'],['docs','Documents'],['cal','Calendrier'],['set','Réglages']],th={auto:['auto','Thème : auto'],light:['sun','Thème : clair'],dark:['moon','Thème : sombre']}[theme],lt=dmLate();
+$('#app').innerHTML=`<div class="shell"><nav class="gl"><div class="brand"><span class="ico" aria-hidden="true"></span>Mon organisation</div>${N.map(([k,l])=>`<button class="nb ${k===view?'on':''}" onclick="go('${k}')">${ic(k)}<span>${l}</span>${k==='dem'&&lt?`<span class="bd">${lt}</span>`:''}</button>`).join('')}<span class="sp"></span>${FSA?`<button class="nb sm" onclick="pick()" title="Dossier de données">${ic('fold')}<span>${dir?esc(dir.name):'Choisir un dossier'}</span></button>`:''}<button class="nb sm" id="syn" onclick="syncSetup()">${ic('rest')}<span></span></button><button class="nb sm" onclick="bk()">${ic('save')}<span>Sauvegarder</span></button><button class="nb sm" onclick="this.nextElementSibling.click()">${ic('rest')}<span>Restaurer</span></button><input type="file" hidden accept=".json" onchange="imp(this.files[0])">${S.th?.on?'':`<button class="nb sm" onclick="cyc()">${ic(th[0])}<span>${th[1]}</span></button>`}<button class="nb sm" onclick="location.reload()">${ic('lock')}<span>Verrouiller</span></button></nav><main class="${view==='bud'?'wide':''} ${ANIM?'anim':''}">${V[view]()}</main></div>`;if(view==='bud')refresh();enh();ANIM=0;syncUI()}
 if(isSecureContext&&'serviceWorker' in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('sw.js').catch(()=>{});
 /* iPhone : bloque le zoom à deux doigts et le double-tap */
 ['gesturestart','gesturechange','gestureend'].forEach(t=>document.addEventListener(t,e=>e.preventDefault(),{passive:false}));
 document.addEventListener('touchmove',e=>{if(e.touches.length>1||(e.scale&&e.scale!==1))e.preventDefault()},{passive:false});
 let lastTap=0;document.addEventListener('touchend',e=>{const n=Date.now();if(n-lastTap<300&&!e.target.closest('input,textarea,select,button,a,[onclick]'))e.preventDefault();lastTap=n},{passive:false});
-const VER='06/11 12:55';
+const VER='06/11 13:12';
 lock();
 </script></body></html>

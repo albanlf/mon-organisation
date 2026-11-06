@@ -25,6 +25,8 @@ function doPost(e) {
     else if (q.op === 'put') res = { t: sput(q.k, q.v) };
     else if (q.op === 'del') res = { ok: sdel(q.k) };
     else if (q.op === 'meta') res = { t: smeta(q.k) };
+    else if (q.op === 'cal') res = { n: calSync(q.v) };
+    else if (q.op === 'calget') res = { evs: calGet(q.k, q.v || Session.getScriptTimeZone()) };
     else throw new Error('op');
   } catch (err) {
     res = { err: String(err && err.message || err) };
@@ -71,4 +73,85 @@ function sdel(k) {
 function smeta(k) {
   const f = files_(k)[0];
   return f ? f.getLastUpdated().getTime() : 0;
+}
+
+/* ---------- Google Agenda ----------
+ * L'app envoie ses événements (titre, dates, répétition, couleur, rappel…) : ils sont recopiés
+ * dans un agenda « Mon organisation ». Les rappels deviennent des notifications Google Agenda
+ * sur le téléphone et l'ordinateur. Seuls les événements modifiés sont recréés.
+ */
+const CALNAME = 'Mon organisation';
+const WD = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
+
+function cal_() {
+  const l = CalendarApp.getCalendarsByName(CALNAME);
+  return l.length ? l[0] : CalendarApp.createCalendar(CALNAME, { color: CalendarApp.Color.PURPLE });
+}
+
+function at_(d, h, tz) {
+  return h ? Utilities.parseDate(d + ' ' + h, tz, 'yyyy-MM-dd HH:mm') : Utilities.parseDate(d, tz, 'yyyy-MM-dd');
+}
+
+function rec_(e, tz) {
+  const r = CalendarApp.newRecurrence();
+  let rule = e.r === 'd' ? r.addDailyRule() : e.r === 'w' ? r.addWeeklyRule() : e.r === 'm' ? r.addMonthlyRule() : r.addYearlyRule();
+  rule = rule.interval(Math.max(1, Number(e.ri) || 1));
+  if (e.r === 'w' && e.wd && e.wd.length) rule = rule.onlyOnWeekdays(e.wd.map(function (i) { return CalendarApp.Weekday[WD[i]]; }));
+  if (e.re === 'date' && e.ru) rule = rule.until(at_(e.ru, '23:59', tz));
+  else if (e.re === 'count') rule = rule.times(Math.max(1, Number(e.rn) || 1));
+  (e.ex || []).forEach(function (x) { r.addDateExclusion(at_(x, e.h, tz)); });
+  return r;
+}
+
+function create_(cal, e, tz) {
+  const start = at_(e.d, e.h, tz), opt = { description: e.no || '', location: e.lo || '' };
+  const end = e.h ? (e.he && e.he > e.h ? at_(e.d, e.he, tz) : new Date(start.getTime() + 3600000)) : null;
+  let ev;
+  if (e.r) ev = e.h ? cal.createEventSeries(e.l, start, end, rec_(e, tz), opt) : cal.createAllDayEventSeries(e.l, start, rec_(e, tz), opt);
+  else ev = e.h ? cal.createEvent(e.l, start, end, opt) : cal.createAllDayEvent(e.l, start, opt);
+  if (e.c) ev.setColor(String(e.c));
+  ev.removeAllReminders();
+  if (e.rm !== '' && e.rm !== null && e.rm !== undefined) ev.addPopupReminder(Number(e.rm));
+  return ev.getId();
+}
+
+function del_(cal, m) {
+  try {
+    if (m.r) { const s = cal.getEventSeriesById(m.g); if (s) s.deleteEventSeries(); }
+    else { const ev = cal.getEventById(m.g); if (ev) ev.deleteEvent(); }
+  } catch (err) {}
+}
+
+/** Recopie les événements de l'app dans l'agenda « Mon organisation ». Renvoie leur nombre. */
+function calSync(json) {
+  const lock = LockService.getScriptLock();
+  lock.waitLock(30000);
+  try {
+    const q = JSON.parse(json), tz = q.tz || Session.getScriptTimeZone(), cal = cal_();
+    const P = PropertiesService.getScriptProperties(), map = JSON.parse(P.getProperty('calmap') || '{}'), seen = {};
+    (q.evs || []).forEach(function (e) {
+      const h = Utilities.base64Encode(Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, JSON.stringify(e) + tz, Utilities.Charset.UTF_8));
+      seen[e.id] = 1;
+      if (map[e.id] && map[e.id].h === h) return;
+      if (map[e.id]) del_(cal, map[e.id]);
+      map[e.id] = { g: create_(cal, e, tz), r: !!e.r, h: h };
+    });
+    Object.keys(map).forEach(function (id) { if (!seen[id]) { del_(cal, map[id]); delete map[id]; } });
+    P.setProperty('calmap', JSON.stringify(map));
+    return Object.keys(map).length;
+  } finally { lock.releaseLock(); }
+}
+
+/** Événements de tes autres agendas Google pour le mois « AAAA-MM » (lecture seule). */
+function calGet(k, tz) {
+  const a = at_(k + '-01', '', tz), b = new Date(a.getFullYear(), a.getMonth() + 1, 1), out = [];
+  CalendarApp.getAllCalendars().forEach(function (c) {
+    if (c.getName() === CALNAME || c.isHidden()) return;
+    const col = c.getColor();
+    c.getEvents(new Date(a.getTime() - 864e5), new Date(b.getTime() + 864e5)).forEach(function (e) {
+      const s = e.isAllDayEvent() ? e.getAllDayStartDate() : e.getStartTime(), d = Utilities.formatDate(s, tz, 'yyyy-MM-dd');
+      if (d.slice(0, 7) === k) out.push({ t: e.getTitle(), d: d, h: e.isAllDayEvent() ? '' : Utilities.formatDate(s, tz, 'HH:mm'), c: col });
+    });
+  });
+  return out;
 }
